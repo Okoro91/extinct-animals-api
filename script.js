@@ -1,7 +1,10 @@
 const container = document.getElementById("container");
+const loadMoreBtn = document.getElementById("load-more-btn");
 const img = "./img/animal.jpeg";
+let startingIndex = 0;
+let endingIndex = 8;
 let animalsData = [];
-const url = "https://extinct-api.herokuapp.com/api/v1/animal/20";
+const url = "https://extinct-api.herokuapp.com/api/v1/animal/200";
 console.log("Fetching data from:", url);
 
 fetch(url)
@@ -9,22 +12,21 @@ fetch(url)
   .then((data) => {
     console.log("Data fetched successfully:", data);
     animalsData = data.data;
-    showAnimals(animalsData);
+    showAnimals(animalsData.slice(startingIndex, endingIndex));
   })
   .catch((error) => console.error("Error fetching data:", error));
 
-const showAnimals = (animals) => {
-  container.innerHTML += `
-             <div class="card">
-             <img src="${animals[0].imageSrc}" alt="${animals[0].commonName}" />
-              <h2>${animals[0].binomialName}</h2>
-              <h3>${animals[0].commonName}</h3>
-              <p>Year Extinct: ${animals[0].lastRecord}</p>
-              <p>Location: ${animals[0].location}</p>
-              <p>Details: ${animals[0].shortDesc}</p>
-            </div>
-          `;
+const loadMoreAnimals = () => {
+  startingIndex += 8;
+  endingIndex += 8;
+  const nextAnimals = animalsData.slice(startingIndex, endingIndex);
+  showAnimals(nextAnimals);
+  if (endingIndex >= animalsData.length) {
+    loadMoreBtn.style.display = "none";
+  }
+};
 
+const showAnimals = (animals) => {
   animals.map((animal) => {
     container.innerHTML += `
         <div class="card">
@@ -45,3 +47,5 @@ const showAnimals = (animals) => {
      `;
   });
 };
+
+loadMoreBtn.addEventListener("click", loadMoreAnimals);

@@ -4,10 +4,23 @@
   font-weight: 400;
 }
 
+h1 {
+  text-align: center;
+  color: #fff;
+  margin-top: 20px;
+  font-size: 3em;
+}
+body {
+  background-color: #6b4c4c;
+  margin: 0;
+  padding: 0;
+}
+
 #container {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  justify-content: center;
   gap: 20px;
   margin-top: 20px;
 }
@@ -35,4 +48,19 @@
   border-radius: 8px;
   margin: 10px auto;
   display: block;
+}
+
+.btn {
+  background-color: #6b4c4c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin: 20px auto;
+  display: block;
+}
+.btn:hover {
+  background-color: #5a3b3b;
 }
